@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Private Threat Intel Agent - Ranjeet Reddy Manchana</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="../../assets/css/noscript.css" />
+    </noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="../../index.html" class="title">Ranjeet Reddy Manchana</a>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../index.html#three">Projects</a></li>
+                <li><a href="#" class="active">Private RAG Agent</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1 class="major">Private Threat Intel Agent with RAG (Saturday)</h1>
+
+                <!-- Intro Image Placeholder -->
+                <span class="image fit"><img src="../../images/saturday_ui.png" alt="Private RAG Agent Interface"
+                        id="project-screenshot" /></span>
+
+                <p><strong>Saturday</strong> is a private, secure, AI-powered research assistant designed specifically
+                    for threat intelligence. It leverages local Large Language Models (LLMs) and Retrieval-Augmented
+                    Generation (RAG) to provide answers based on your internal datasets (PDFs, STIX, CVEs) without
+                    exposing sensitive data to the cloud.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Fully Private:</strong> Runs entirely on your local machine using
+                        <code>llama-cpp-python</code>. No data leaves your network.</li>
+                    <li><strong>RAG Engine:</strong> Automatically ingests and understands PDF Threat Reports, CVE JSON
+                        Records, STIX/TAXII Objects, and Text Notes.</li>
+                    <li><strong>Smart Routing:</strong> The agent intelligently decides the best source for your answer:
+                        <ol>
+                            <li><em>Local Context:</em> Checks your private database first.</li>
+                            <li><em>Web Search:</em> Falls back to the web for the latest vulnerabilities (if enabled).
+                            </li>
+                            <li><em>General Knowledge:</em> Uses the LLM's base knowledge for general queries.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Web Search Integration:</strong> Real-time internet access for up-to-the-minute threat
+                        data.</li>
+                    <li><strong>Modern UI:</strong> A beautiful, dark-mode, glassmorphism interface built with NiceGUI.
+                    </li>
+                </ul>
+
+                <h3>System Design</h3>
+                <p>The system is built on a modular architecture designed for privacy and extensibility.</p>
+
+                <!-- Mermaid Diagram -->
+                <div class="mermaid"
+                    style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; margin-bottom: 2em;">
+                    flowchart TD
+                    User[User] -->|"Query"| UI[UI Interface]
+                    UI -->|"Process"| Agent[Agent Core]
+
+                    subgraph "Decision Engine"
+                    Agent -->|"1. Search"| RAG[RAG Engine]
+                    Agent -->|"2. Fallback"| Web[Web Search]
+                    Agent -->|"3. Generate"| LLM[Local LLM]
+                    end
+
+                    subgraph "Data Layer"
+                    RAG <-->|"Retrieve"| Chroma[ChromaDB Vector Store]
+                        RAG <-->|"Ingest"| Files[PDFs · JSONs · STIX Files]
+                            end
+
+                            Web <-->|"Fetch"| Internet[(Internet)]
+
+                                LLM -->|"Response"| Agent
+                                Agent -->|"Answer"| UI
+                </div>
+
+                <h4>Components</h4>
+                <ul>
+                    <li><strong>Agent (<code>src/agent.py</code>):</strong> The brain of the system. It handles the
+                        logic for routing queries, managing chat history, and constructing the context for the LLM.</li>
+                    <li><strong>RAG Engine (<code>src/rag_engine.py</code>):</strong> Manages document ingestion,
+                        parsing (PDF/JSON), chunking, and vector retrieval using ChromaDB.</li>
+                    <li><strong>Web Search (<code>src/web_search.py</code>):</strong> Provides real-time search
+                        capabilities to supplement local data.</li>
+                    <li><strong>LLM Client (<code>src/llm_client.py</code>):</strong> Interfaces with the local Llama
+                        model for inference.</li>
+                </ul>
+
+                <ul class="actions">
+                    <li><a href="https://github.com/ranjeetreddy14/private-threat-intel-agent-rag"
+                            class="button primary icon brands fa-github" target="_blank">View on GitHub</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; 2025 Ranjeet Reddy Manchana. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose'
+        });
+    </script>
+
+</body>
+
+</html>
